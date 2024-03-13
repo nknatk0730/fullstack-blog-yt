@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 const prisma = new PrismaClient();
 
-export default async function main() {
+export async function Main() {
     try {
         await prisma.$connect();
     } catch (error) {
@@ -14,7 +14,7 @@ export default async function main() {
 // ブログの全記事取得API
 export const GET =async (req: Request, res: NextResponse) => {
     try {
-        await main();
+        await Main();
         const posts = await prisma.post.findMany();
         return NextResponse.json({message: 'Success', posts}, {status: 200});
     } catch (error) {
@@ -29,7 +29,7 @@ export const POST = async (req: Request, res: NextResponse) => {
     try {
         const {title, description} = await req.json();
 
-        await main();
+        await Main();
         const post = await prisma.post.create({data: {title, description}});
         return NextResponse.json({message: 'Success', post}, {status: 201});
     } catch (error) {
