@@ -5,7 +5,7 @@ import { useEffect, useRef } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
 const editBlog = async (title:string | undefined, description: string | undefined, id: number) => {
-    const res = await fetch(`http://localhost:3000/api/blog/${id}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/blog/${id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -17,14 +17,14 @@ const editBlog = async (title:string | undefined, description: string | undefine
 }
 
 const getBlogById = async (id: number) => {
-    const res = await fetch(`http://localhost:3000/api/blog/${id}`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/blog/${id}`);
     const data = await res.json();
 
     return data.post;
 }
 
 const deleteBlog = async (id: number) => {
-    const res = await fetch(`http://localhost:3000/api/blog/${id}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/blog/${id}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',

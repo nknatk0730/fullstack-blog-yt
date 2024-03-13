@@ -9,7 +9,7 @@ import { addTodo } from "./actions";
 const prisma = new PrismaClient();
 
 const postBlog =async (title:string | undefined, description: string | undefined) => {
-    const res = await fetch(`http://localhost:3000/api/blog`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/blog`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
