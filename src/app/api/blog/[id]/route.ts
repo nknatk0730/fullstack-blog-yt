@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
-import { Main } from "../route";
+import main from "../route";
 
 const prisma = new PrismaClient();
 
@@ -8,7 +8,7 @@ const prisma = new PrismaClient();
 export const GET = async (req:Request, res: NextResponse) => {
     try {
         const id: number = parseInt(req.url.split("/blog/")[1]);
-        await Main();
+        await main();
         const post = await prisma.post.findFirst({where: {id}}); // http://localhost:3000/api/blog/3
         return NextResponse.json({message: 'Success', post}, {status: 200});
     } catch (error) {
@@ -23,7 +23,7 @@ export const PUT = async (req:Request, res: NextResponse) => {
     try {
         const id: number = parseInt(req.url.split("/blog/")[1]);
         const {title, description} = await req.json();
-        await Main();
+        await main();
         const post = await prisma.post.update({
             data: {title, description},
             where: {id},
@@ -39,7 +39,7 @@ export const PUT = async (req:Request, res: NextResponse) => {
 export const DELETE = async (req:Request, res: NextResponse) => {
     try {
         const id: number = parseInt(req.url.split("/blog/")[1]);
-        await Main();
+        await main();
         const post = await prisma.post.delete({
             where: {id},
         })
